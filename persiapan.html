@@ -624,7 +624,7 @@
           </div>
         </div>
 
-        <!-- Kerja Update Kecil (3 Input) -->
+        <!-- Kerja Update Kecil (7 Input) -->
         <div class="kerja-item-group">
           <label>Kecil potensi keuntungan 50ribu-500ribu</label>
           <div class="kerja-inputs-row">
@@ -643,6 +643,30 @@
             <input type="text" class="input-link" id="inputUrlKecil3" placeholder="URL 3 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil3', 'thumbKecil3')">
             <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil3').value)" title="Klik untuk preview gambar atau buka link">
               <img id="thumbKecil3" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil4" placeholder="URL 4 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil4', 'thumbKecil4')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil4').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil4" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil5" placeholder="URL 5 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil5', 'thumbKecil5')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil5').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil5" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil6" placeholder="URL 6 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil6', 'thumbKecil6')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil6').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil6" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil7" placeholder="URL 7 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil7', 'thumbKecil7')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil7').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil7" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
             </div>
           </div>
         </div>
@@ -959,6 +983,10 @@
               document.getElementById(`inputUrlSedang${i}`).value = data[`kerja_sedang_url${i}`];
               updateThumbnail(`inputUrlSedang${i}`, `thumbSedang${i}`);
             }
+          }
+
+          // Loop untuk 7 input Kecil
+          for (let i = 1; i <= 7; i++) {
             if (data[`kerja_kecil_url${i}`] !== undefined) {
               document.getElementById(`inputUrlKecil${i}`).value = data[`kerja_kecil_url${i}`];
               updateThumbnail(`inputUrlKecil${i}`, `thumbKecil${i}`);
@@ -1027,6 +1055,10 @@
       for (let i = 1; i <= 3; i++) {
         data[`kerja_besar_url${i}`] = document.getElementById(`inputUrlBesar${i}`).value;
         data[`kerja_sedang_url${i}`] = document.getElementById(`inputUrlSedang${i}`).value;
+      }
+
+      // Simpan 7 input Kecil
+      for (let i = 1; i <= 7; i++) {
         data[`kerja_kecil_url${i}`] = document.getElementById(`inputUrlKecil${i}`).value;
       }
 
