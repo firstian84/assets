@@ -660,14 +660,14 @@
             venueLinks = data.venueLinks;
           }
 
-          statusEl.innerText = 'Data berhasil dimuat dari Upstash ✅';
+          statusEl.innerText = ' ✅';
           statusEl.style.color = '#125c48';
         } else {
           statusEl.innerText = 'Menggunakan data default.';
         }
       } catch (error) {
         console.error('Gagal memuat data:', error);
-        statusEl.innerText = 'Gagal tersambung ke database Upstash ❌';
+        statusEl.innerText = ' ❌';
         statusEl.style.color = '#b81414';
       }
       calculateTotal();
@@ -711,11 +711,11 @@
           },
           body: JSON.stringify(data)
         });
-        statusEl.innerText = 'Berhasil di-update ke Upstash ✅';
+        statusEl.innerText = ' ✅';
         statusEl.style.color = '#125c48';
       } catch (error) {
         console.error('Gagal menyimpan:', error);
-        statusEl.innerText = 'Gagal menyimpan ke Upstash ❌';
+        statusEl.innerText = ' ❌';
         statusEl.style.color = '#b81414';
       }
     }
