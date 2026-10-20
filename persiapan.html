@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Review Process Nikah Kita - Imperial Chinese Edition</title>
+  <title>Review</title>
   <style>
     :root {
       --primary: #b81414; /* Imperial Red */
@@ -25,12 +25,11 @@
     }
 
     body {
-      background: 
-                  url('https://raw.githubusercontent.com/firstian84/assets/main/IMG_20261018_104336_820.jpg') no-repeat center center fixed;
+      background: url('https://raw.githubusercontent.com/firstian84/assets/main/IMG_20261018_104336_820.jpg') no-repeat center center fixed;
       background-size: cover;
       color: var(--text);
-      line-height: 1.6;
-      padding: 20px;
+      line-height: 1.5;
+      padding: 12px;
       min-height: 100vh;
       transition: background 0.5s ease;
     }
@@ -42,22 +41,21 @@
 
     header {
       text-align: center;
-      margin-bottom: 40px;
-      padding: 25px 0;
+      margin-bottom: 20px;
+      padding: 15px 10px;
       border-bottom: 2px solid var(--accent);
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(8px);
       border-radius: var(--radius);
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     }
 
-    /* Efek Cahaya Berkedip Pada Judul (Nuansa Imperial Emas & Merah) */
+    /* Ukuran Judul Dinamis (Responsif) */
     header h1 {
       color: var(--primary);
-      font-size: 2.3rem;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-      text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px var(--glow-color);
+      font-size: clamp(1.3rem, 4vw, 2.1rem);
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.8), 0 0 15px var(--glow-color);
       animation: pulseGlow 3s infinite alternate ease-in-out;
       transition: color 0.4s ease, text-shadow 0.4s ease;
     }
@@ -67,41 +65,39 @@
         text-shadow: 0 0 5px rgba(212, 175, 55, 0.6), 0 0 10px var(--glow-color);
       }
       100% {
-        text-shadow: 0 0 20px rgba(212, 175, 55, 1), 0 0 35px var(--primary), 0 0 45px var(--accent);
+        text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 25px var(--primary), 0 0 35px var(--accent);
       }
     }
 
-    /* BUDGET SECTION DENGAN EFEK CAHAYA & MOTIF CINA */
+    /* BUDGET SECTION */
     .budget-container {
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
       border-radius: var(--radius);
-      padding: 25px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(212, 175, 55, 0.25);
-      overflow-x: auto;
-      margin-bottom: 25px;
+      padding: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), inset 0 0 10px rgba(212, 175, 55, 0.25);
+      margin-bottom: 18px;
       transition: all 0.4s ease;
-      border: 2px solid var(--accent);
+      border: 1.5px solid var(--accent);
     }
 
     .budget-container:hover {
-      box-shadow: 0 10px 30px rgba(184, 20, 20, 0.25), 0 0 25px var(--glow-color);
-      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(184, 20, 20, 0.25), 0 0 20px var(--glow-color);
     }
 
     .budget-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
-      min-width: 650px;
+      table-layout: fixed;
     }
 
     .budget-table th, 
     .budget-table td {
-      padding: 14px 16px;
+      padding: 10px 8px;
       text-align: left;
       border-bottom: 1px solid #e6d2bc;
       vertical-align: middle;
+      font-size: 0.88rem;
     }
 
     .budget-table th {
@@ -110,29 +106,33 @@
       border-bottom: 2px solid var(--accent);
       font-weight: 700;
       letter-spacing: 0.5px;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* INPUT INTERAKTIF WARNA DAN CAHAYA */
+    /* Alignment & Width Kolom */
+    .budget-table col.col-desc { width: 55%; }
+    .budget-table col.col-price { width: 45%; }
+
+    /* INPUT INTERAKTIF */
     .budget-table input[type="text"] {
       width: 100%;
-      padding: 10px;
-      border: 2px solid #d4af37;
+      padding: 8px 10px;
+      border: 1.5px solid #d4af37;
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       background: var(--white);
       transition: all 0.3s ease;
       outline: none;
       color: var(--text);
+      text-align: right;
     }
 
     .budget-table input[type="text"]:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 15px var(--glow-color);
+      box-shadow: 0 0 10px var(--glow-color);
       background-color: #fff9f0;
     }
 
-    /* TOMBOL KHUSUS VENUE */
+    /* TOMBOL VENUE */
     .btn-venue-link {
       background: none;
       border: none;
@@ -140,71 +140,74 @@
       font-weight: bold;
       text-align: left;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.95rem;
+      display: block;
       width: 100%;
-      padding: 8px 12px;
+      padding: 4px;
       border-radius: 6px;
       transition: all 0.3s ease;
     }
 
     .btn-venue-link:hover {
       background-color: var(--primary-light);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-      transform: translateX(4px);
     }
 
-    /* TOTAL BOX DENGAN GRADASI KEKAISARAN CINA & CAHAYA BERKEDIP */
+    .btn-venue-link strong {
+      font-size: 0.9rem;
+    }
+
+    .btn-venue-link span {
+      font-size: 0.72rem;
+      color: #665;
+      font-weight: normal;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* TOTAL BOX DENGAN GRADASI KEKAISARAN CINA */
     .total-box {
-      margin-top: 25px;
+      margin-top: 18px;
       background: linear-gradient(135deg, #b81414, #800e0e);
       color: var(--white);
-      padding: 20px;
+      padding: 14px 16px;
       border-radius: var(--radius);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.3rem;
+      font-size: 1rem;
       font-weight: bold;
       border: 1px solid var(--accent);
       box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-      transition: background 0.5s ease, box-shadow 0.5s ease;
       animation: boxPulse 4s infinite alternate ease-in-out;
     }
 
     @keyframes boxPulse {
       0% {
-        box-shadow: 0 4px 15px rgba(184, 20, 20, 0.4), 0 0 8px var(--primary);
+        box-shadow: 0 4px 12px rgba(184, 20, 20, 0.4);
       }
       100% {
-        box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6), 0 0 30px var(--accent);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
       }
     }
 
     .total-amount {
-      color: #ffd700; /* Gold */
-      font-size: 1.6rem;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-      transition: all 0.3s ease;
+      color: #ffd700;
+      font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
     }
 
-    /* Kelas animasi kilat saat nilai berubah */
+    /* Animasi kilat saat nilai berubah */
     .glow-update {
       animation: flashGlow 0.8s ease-out;
     }
 
     @keyframes flashGlow {
       0% {
-        transform: scale(1.15);
+        transform: scale(1.08);
         color: #ff4d4d;
-        text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ffd700;
       }
       100% {
         transform: scale(1);
         color: #ffd700;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
       }
     }
 
@@ -212,40 +215,33 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 15px;
+      margin-top: 14px;
       gap: 10px;
-      flex-wrap: wrap;
     }
 
     .sync-status {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       color: #443834;
       font-weight: 600;
-      transition: color 0.3s ease;
+      flex: 1;
     }
 
-    /* TOMBOL SYNC DENGAN TEMA EMAS & MERAH */
     .btn-update-upstash {
       background: linear-gradient(135deg, #b81414, #900a0a);
       color: #ffd700;
       border: 1px solid var(--accent);
-      padding: 10px 18px;
+      padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
+      white-space: nowrap;
       transition: all 0.3s ease;
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-update-upstash:hover {
-      background: linear-gradient(135deg, #d41c1c, #b81414);
-      box-shadow: 0 0 20px var(--glow-color), 0 0 10px var(--accent);
-      transform: scale(1.03);
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
     }
 
     .btn-update-upstash:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
     }
 
     /* MODAL POPUP */
@@ -258,84 +254,72 @@
       width: 100%;
       height: 100%;
       background-color: rgba(26, 5, 5, 0.75);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(4px);
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      transition: all 0.3s ease;
+      padding: 15px;
     }
 
     .modal-content {
       background-color: var(--white);
       border-radius: var(--radius);
       width: 100%;
-      max-width: 600px;
-      max-height: 90vh;
+      max-width: 500px;
+      max-height: 85vh;
       overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px var(--glow-color);
-      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      padding: 18px;
       position: relative;
-      border: 2px solid var(--accent);
-      animation: modalFadeIn 0.3s ease-out;
+      border: 1.5px solid var(--accent);
+      animation: modalFadeIn 0.25s ease-out;
     }
 
     @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(-20px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .close-modal {
       position: absolute;
-      right: 20px;
-      top: 20px;
-      font-size: 1.5rem;
+      right: 15px;
+      top: 12px;
+      font-size: 1.4rem;
       font-weight: bold;
       color: var(--primary);
       cursor: pointer;
       border: none;
       background: none;
-      transition: color 0.2s ease;
-    }
-
-    .close-modal:hover {
-      color: var(--accent);
     }
 
     .link-list {
       list-style: none;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .link-list li {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: var(--primary-light);
-      padding: 10px 12px;
+      padding: 8px 10px;
       border-radius: 6px;
       border: 1px solid #f0d5d5;
-      gap: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .link-list li:hover {
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-      transform: translateX(3px);
+      gap: 8px;
     }
 
     .link-info {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       overflow: hidden;
       flex: 1;
     }
 
     .link-thumb {
-      width: 40px;
-      height: 40px;
-      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
       object-fit: cover;
       background-color: #fff;
       flex-shrink: 0;
@@ -347,74 +331,65 @@
       text-decoration: none;
       font-weight: 500;
       word-break: break-all;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-
-    .link-list a:hover {
-      text-decoration: underline;
-      color: var(--accent);
+      font-size: 0.8rem;
     }
 
     .btn-delete-link {
       background: #b81414;
       color: white;
       border: none;
-      padding: 6px 10px;
+      padding: 5px 8px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .btn-delete-link:hover {
-      box-shadow: 0 0 10px rgba(184, 20, 20, 0.8);
-      transform: scale(1.05);
     }
 
     .add-link-form {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-top: 10px;
     }
 
     .add-link-form input {
       flex: 1;
-      padding: 10px;
+      padding: 8px 10px;
       border: 1px solid var(--accent);
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       outline: none;
-      transition: all 0.3s ease;
-    }
-
-    .add-link-form input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 10px var(--glow-color);
     }
 
     .btn-add {
       background: linear-gradient(135deg, #b81414, #800e0e);
       color: #ffd700;
       border: 1px solid var(--accent);
-      padding: 8px 15px;
+      padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
+      font-size: 0.82rem;
       font-weight: 600;
-      transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
-    .btn-add:hover {
-      box-shadow: 0 0 15px var(--glow-color);
-      transform: scale(1.03);
-    }
+    /* KHUSUS DISPLAY SMARTPHONE / SCREEN KECIL */
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+      
+      .budget-container {
+        padding: 12px 10px;
+      }
 
-    @media (max-width: 600px) {
-      .total-box {
+      .sync-wrapper {
         flex-direction: column;
+        align-items: stretch;
         text-align: center;
-        gap: 10px;
+      }
+
+      .btn-update-upstash {
+        width: 100%;
       }
     }
   </style>
@@ -429,20 +404,22 @@
     <!-- TABEL BUDGET TAMBAHAN KECIL PERTAMA -->
     <div class="budget-container">
       <table class="budget-table">
+        <colgroup>
+          <col class="col-desc">
+          <col class="col-price">
+        </colgroup>
         <thead>
           <tr>
             <th>BUDGET TAMBAHAN KECIL</th>
-            <th style="width: 200px;">+(Rp)</th>
+            <th style="text-align: right;">+(Rp)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
               <button class="btn-venue-link" onclick="openVenueModal()">
-                <div>
-                  <strong>DANA MASUK</strong><br>
-                  <span style="font-size: 0.75rem; color: #665; font-weight: normal;">🔗 Klik lihat galeri & link vendor</span>
-                </div>
+                <strong>DANA MASUK</strong>
+                <span>🔗 Galeri & vendor</span>
               </button>
             </td>
             <td><input type="text" class="price-input" data-id="venue" value="35.000.000" oninput="formatNumberInput(this); handleInput()"></td>
@@ -454,15 +431,14 @@
     <!-- TABEL BUDGET UTAMA -->
     <div class="budget-container">
       <table class="budget-table">
-        <thead>
-          <tr></tr>
-        </thead>
+        <colgroup>
+          <col class="col-desc">
+          <col class="col-price">
+        </colgroup>
         <tbody>
           <tr>
             <td>
-              <div>
-                <strong>BUDGET UTAMA</strong>
-              </div>
+              <strong>BUDGET UTAMA</strong>
             </td>
             <td><input type="text" class="price-input" data-id="tambahan_kedua" value="0" oninput="formatNumberInput(this); handleInput()"></td>
           </tr>
@@ -477,7 +453,7 @@
       <!-- BAGIAN STATUS & TOMBOL UPDATE MANUAL -->
       <div class="sync-wrapper">
         <div class="sync-status" id="syncStatus">Memuat data dari Upstash...</div>
-        <button class="btn-update-upstash" onclick="manualSaveToUpstash()">🔄 Update ke Upstash</button>
+        <button class="btn-update-upstash" onclick="manualSaveToUpstash()">🔄 Update Upstash</button>
       </div>
     </div>
   </div>
@@ -486,7 +462,7 @@
   <div class="modal" id="venueModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeVenueModal()">&times;</button>
-      <h4 style="margin-bottom: 10px; color: var(--primary);">RINCIAN</h4>
+      <h4 style="margin-bottom: 12px; color: var(--primary); font-size: 1rem;">RINCIAN</h4>
       <ul class="link-list" id="venueLinkList">
         <!-- Render dinamis via JS -->
       </ul>
@@ -498,7 +474,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & UPSTASH INTEGRATION DENGAN RESPON WARNA & CAHAYA -->
+  <!-- JAVASCRIPT & UPSTASH INTEGRATION -->
   <script>
     const UPSTASH_CONFIG = {
         URL: "https://enabled-crayfish-71186.upstash.io",
@@ -513,16 +489,14 @@
       { name: "https://www.weddingmarket.com", url: "https://www.weddingmarket.com" }
     ];
 
-    // Variasi Warna Dinamis berdasarkan konsep kekaisaran Cina (Merah Kerajaan, Giok Emas, Merah Marun, & Nuansa Oriental)
     const COLOR_PALETTES = [
-      { primary: "#b81414", glow: "rgba(212, 175, 55, 0.7)", light: "#fdf2f2" }, // Imperial Red & Gold
-      { primary: "#125c48", glow: "rgba(212, 175, 55, 0.7)", light: "#eaf3f0" },  // Deep Jade Green
-      { primary: "#8c1c1c", glow: "rgba(255, 140, 0, 0.7)", light: "#fbf0f0" },   // Deep Crimson
-      { primary: "#a67c00", glow: "rgba(184, 20, 20, 0.7)", light: "#fcf8eb" }    // Royal Gold
+      { primary: "#b81414", glow: "rgba(212, 175, 55, 0.7)", light: "#fdf2f2" }, 
+      { primary: "#125c48", glow: "rgba(212, 175, 55, 0.7)", light: "#eaf3f0" },  
+      { primary: "#8c1c1c", glow: "rgba(255, 140, 0, 0.7)", light: "#fbf0f0" },   
+      { primary: "#a67c00", glow: "rgba(184, 20, 20, 0.7)", light: "#fcf8eb" }    
     ];
 
     function updateDynamicTheme(totalValue) {
-      // Pilih tema warna secara dinamis berdasarkan besaran nominal total dana
       let index = Math.floor((totalValue / 50000000) % COLOR_PALETTES.length);
       let theme = COLOR_PALETTES[index];
 
@@ -573,7 +547,7 @@
       const listEl = document.getElementById('venueLinkList');
       listEl.innerHTML = '';
       if (venueLinks.length === 0) {
-        listEl.innerHTML = '<li style="justify-content:center; color:#777;">Belum ada link tersimpan.</li>';
+        listEl.innerHTML = '<li style="justify-content:center; color:#777; font-size: 0.8rem;">Belum ada link tersimpan.</li>';
         return;
       }
       venueLinks.forEach((link, index) => {
@@ -632,15 +606,13 @@
 
       const totalEl = document.getElementById('grandTotal');
       
-      // Animasi kilatan cahaya saat angka berubah
       if (totalEl.innerText !== formattedTotal) {
         totalEl.innerText = formattedTotal;
         totalEl.classList.remove('glow-update');
-        void totalEl.offsetWidth; // Trigger reflow
+        void totalEl.offsetWidth; 
         totalEl.classList.add('glow-update');
       }
 
-      // Perbarui tema warna secara interaktif
       updateDynamicTheme(total);
     }
 
@@ -671,7 +643,7 @@
           statusEl.innerText = 'Data berhasil dimuat dari Upstash ✅';
           statusEl.style.color = '#125c48';
         } else {
-          statusEl.innerText = 'Menggunakan data default (belum ada data tersimpan).';
+          statusEl.innerText = 'Menggunakan data default.';
         }
       } catch (error) {
         console.error('Gagal memuat data:', error);
