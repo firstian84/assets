@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Process Nikah Kita - Imperial Chinese Edition</title>
+  <style>
+    :root {
+      --primary: #b81414; /* Imperial Red */
+      --primary-light: #fdf2f2; /* Soft Red Tint */
+      --accent: #d4af37; /* Metallic Gold */
+      --bg: #1a0505;
+      --text: #2c221e;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(184, 20, 20, 0.15);
+      --radius: 12px;
+      --glow-color: rgba(212, 175, 55, 0.7); /* Gold Glow */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: 
+                  url('https://raw.githubusercontent.com/firstian84/assets/main/IMG_20261018_104336_820.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      transition: background 0.5s ease;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 25px 0;
+      border-bottom: 2px solid var(--accent);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Efek Cahaya Berkedip Pada Judul (Nuansa Imperial Emas & Merah) */
+    header h1 {
+      color: var(--primary);
+      font-size: 2.3rem;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px var(--glow-color);
+      animation: pulseGlow 3s infinite alternate ease-in-out;
+      transition: color 0.4s ease, text-shadow 0.4s ease;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        text-shadow: 0 0 5px rgba(212, 175, 55, 0.6), 0 0 10px var(--glow-color);
+      }
+      100% {
+        text-shadow: 0 0 20px rgba(212, 175, 55, 1), 0 0 35px var(--primary), 0 0 45px var(--accent);
+      }
+    }
+
+    /* BUDGET SECTION DENGAN EFEK CAHAYA & MOTIF CINA */
+    .budget-container {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(212, 175, 55, 0.25);
+      overflow-x: auto;
+      margin-bottom: 25px;
+      transition: all 0.4s ease;
+      border: 2px solid var(--accent);
+    }
+
+    .budget-container:hover {
+      box-shadow: 0 10px 30px rgba(184, 20, 20, 0.25), 0 0 25px var(--glow-color);
+      transform: translateY(-2px);
+    }
+
+    .budget-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      min-width: 650px;
+    }
+
+    .budget-table th, 
+    .budget-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e6d2bc;
+      vertical-align: middle;
+    }
+
+    .budget-table th {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* INPUT INTERAKTIF WARNA DAN CAHAYA */
+    .budget-table input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #d4af37;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: var(--white);
+      transition: all 0.3s ease;
+      outline: none;
+      color: var(--text);
+    }
+
+    .budget-table input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--glow-color);
+      background-color: #fff9f0;
+    }
+
+    /* TOMBOL KHUSUS VENUE */
+    .btn-venue-link {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: bold;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-venue-link:hover {
+      background-color: var(--primary-light);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+      transform: translateX(4px);
+    }
+
+    /* TOTAL BOX DENGAN GRADASI KEKAISARAN CINA & CAHAYA BERKEDIP */
+    .total-box {
+      margin-top: 25px;
+      background: linear-gradient(135deg, #b81414, #800e0e);
+      color: var(--white);
+      padding: 20px;
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      transition: background 0.5s ease, box-shadow 0.5s ease;
+      animation: boxPulse 4s infinite alternate ease-in-out;
+    }
+
+    @keyframes boxPulse {
+      0% {
+        box-shadow: 0 4px 15px rgba(184, 20, 20, 0.4), 0 0 8px var(--primary);
+      }
+      100% {
+        box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6), 0 0 30px var(--accent);
+      }
+    }
+
+    .total-amount {
+      color: #ffd700; /* Gold */
+      font-size: 1.6rem;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    /* Kelas animasi kilat saat nilai berubah */
+    .glow-update {
+      animation: flashGlow 0.8s ease-out;
+    }
+
+    @keyframes flashGlow {
+      0% {
+        transform: scale(1.15);
+        color: #ff4d4d;
+        text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ffd700;
+      }
+      100% {
+        transform: scale(1);
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      }
+    }
+
+    .sync-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sync-status {
+      font-size: 0.85rem;
+      color: #443834;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    /* TOMBOL SYNC DENGAN TEMA EMAS & MERAH */
+    .btn-update-upstash {
+      background: linear-gradient(135deg, #b81414, #900a0a);
+      color: #ffd700;
+      border: 1px solid var(--accent);
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-update-upstash:hover {
+      background: linear-gradient(135deg, #d41c1c, #b81414);
+      box-shadow: 0 0 20px var(--glow-color), 0 0 10px var(--accent);
+      transform: scale(1.03);
+    }
+
+    .btn-update-upstash:active {
+      transform: scale(0.97);
+    }
+
+    /* MODAL POPUP */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(26, 5, 5, 0.75);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px var(--glow-color);
+      padding: 25px;
+      position: relative;
+      border: 2px solid var(--accent);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      cursor: pointer;
+      border: none;
+      background: none;
+      transition: color 0.2s ease;
+    }
+
+    .close-modal:hover {
+      color: var(--accent);
+    }
+
+    .link-list {
+      list-style: none;
+      margin-bottom: 15px;
+    }
+
+    .link-list li {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary-light);
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #f0d5d5;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .link-list li:hover {
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+      transform: translateX(3px);
+    }
+
+    .link-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .link-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+      background-color: #fff;
+      flex-shrink: 0;
+      border: 1px solid var(--accent);
+    }
+
+    .link-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      word-break: break-all;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .link-list a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+
+    .btn-delete-link {
+      background: #b81414;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .btn-delete-link:hover {
+      box-shadow: 0 0 10px rgba(184, 20, 20, 0.8);
+      transform: scale(1.05);
+    }
+
+    .add-link-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .add-link-form input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .add-link-form input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    .btn-add {
+      background: linear-gradient(135deg, #b81414, #800e0e);
+      color: #ffd700;
+      border: 1px solid var(--accent);
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-add:hover {
+      box-shadow: 0 0 15px var(--glow-color);
+      transform: scale(1.03);
+    }
+
+    @media (max-width: 600px) {
+      .total-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1 id="mainTitle">Review PROSES NIKAH KITA</h1>
+    </header>
+
+    <!-- TABEL BUDGET TAMBAHAN KECIL PERTAMA -->
+    <div class="budget-container">
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>BUDGET TAMBAHAN KECIL</th>
+            <th style="width: 200px;">+(Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <button class="btn-venue-link" onclick="openVenueModal()">
+                <div>
+                  <strong>DANA MASUK</strong><br>
+                  <span style="font-size: 0.75rem; color: #665; font-weight: normal;">🔗 Klik lihat galeri & link vendor</span>
+                </div>
+              </button>
+            </td>
+            <td><input type="text" class="price-input" data-id="venue" value="35.000.000" oninput="formatNumberInput(this); handleInput()"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TABEL BUDGET UTAMA -->
+    <div class="budget-container">
+      <table class="budget-table">
+        <thead>
+          <tr></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div>
+                <strong>BUDGET UTAMA</strong>
+              </div>
+            </td>
+            <td><input type="text" class="price-input" data-id="tambahan_kedua" value="0" oninput="formatNumberInput(this); handleInput()"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total-box" id="totalBox">
+        <span>TOTAL DANA:</span>
+        <span class="total-amount" id="grandTotal">Rp 0</span>
+      </div>
+
+      <!-- BAGIAN STATUS & TOMBOL UPDATE MANUAL -->
+      <div class="sync-wrapper">
+        <div class="sync-status" id="syncStatus">Memuat data dari Upstash...</div>
+        <button class="btn-update-upstash" onclick="manualSaveToUpstash()">🔄 Update ke Upstash</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL POPUP VENUE -->
+  <div class="modal" id="venueModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeVenueModal()">&times;</button>
+      <h4 style="margin-bottom: 10px; color: var(--primary);">RINCIAN</h4>
+      <ul class="link-list" id="venueLinkList">
+        <!-- Render dinamis via JS -->
+      </ul>
+
+      <div class="add-link-form">
+        <input type="url" id="newLinkUrl" placeholder="Masukkan URL (https://...)">
+        <button class="btn-add" onclick="addNewLink()">Tambah</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT & UPSTASH INTEGRATION DENGAN RESPON WARNA & CAHAYA -->
+  <script>
+    const UPSTASH_CONFIG = {
+        URL: "https://enabled-crayfish-71186.upstash.io",
+        TOKEN: "gQAAAAAAARYSAAIncDE2MzUzMjQ5Mzg2N2E0YzU2OTUxODJjZWNmY2E2NzkyMXAxNzExODY",
+        PREFIX: "persiapan_nikah"
+    };
+
+    let saveTimeout = null;
+
+    let venueLinks = [
+      { name: "https://www.bridestory.com", url: "https://www.bridestory.com" },
+      { name: "https://www.weddingmarket.com", url: "https://www.weddingmarket.com" }
+    ];
+
+    // Variasi Warna Dinamis berdasarkan konsep kekaisaran Cina (Merah Kerajaan, Giok Emas, Merah Marun, & Nuansa Oriental)
+    const COLOR_PALETTES = [
+      { primary: "#b81414", glow: "rgba(212, 175, 55, 0.7)", light: "#fdf2f2" }, // Imperial Red & Gold
+      { primary: "#125c48", glow: "rgba(212, 175, 55, 0.7)", light: "#eaf3f0" },  // Deep Jade Green
+      { primary: "#8c1c1c", glow: "rgba(255, 140, 0, 0.7)", light: "#fbf0f0" },   // Deep Crimson
+      { primary: "#a67c00", glow: "rgba(184, 20, 20, 0.7)", light: "#fcf8eb" }    // Royal Gold
+    ];
+
+    function updateDynamicTheme(totalValue) {
+      // Pilih tema warna secara dinamis berdasarkan besaran nominal total dana
+      let index = Math.floor((totalValue / 50000000) % COLOR_PALETTES.length);
+      let theme = COLOR_PALETTES[index];
+
+      document.documentElement.style.setProperty('--primary', theme.primary);
+      document.documentElement.style.setProperty('--glow-color', theme.glow);
+      document.documentElement.style.setProperty('--primary-light', theme.light);
+    }
+
+    function formatNumberInput(input) {
+      let value = input.value.replace(/[^,\d]/g, '').toString();
+      let split = value.split(',');
+      let sisa = split[0].length % 3;
+      let rupiah = split[0].substr(0, sisa);
+      let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+      if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+
+      input.value = rupiah;
+    }
+
+    function getRawValue(val) {
+      if (!val) return 0;
+      return parseFloat(val.toString().replace(/\./g, '')) || 0;
+    }
+
+    function openVenueModal() {
+      document.getElementById('venueModal').style.display = 'flex';
+      renderVenueLinks();
+    }
+
+    function closeVenueModal() {
+      document.getElementById('venueModal').style.display = 'none';
+    }
+
+    function getFaviconUrl(url) {
+      try {
+        const domain = new URL(url).hostname;
+        return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+      } catch (e) {
+        return 'https://via.placeholder.com/40';
+      }
+    }
+
+    function renderVenueLinks() {
+      const listEl = document.getElementById('venueLinkList');
+      listEl.innerHTML = '';
+      if (venueLinks.length === 0) {
+        listEl.innerHTML = '<li style="justify-content:center; color:#777;">Belum ada link tersimpan.</li>';
+        return;
+      }
+      venueLinks.forEach((link, index) => {
+        const iconUrl = getFaviconUrl(link.url);
+        listEl.innerHTML += `
+          <li>
+            <div class="link-info">
+              <img src="${iconUrl}" class="link-thumb" alt="thumbnail" onerror="this.src='https://via.placeholder.com/40'">
+              <a href="${link.url}" target="_blank">${link.url}</a>
+            </div>
+            <button class="btn-delete-link" onclick="deleteLink(${index})">Hapus</button>
+          </li>
+        `;
+      });
+    }
+
+    function addNewLink() {
+      const urlInput = document.getElementById('newLinkUrl');
+      let urlValue = urlInput.value.trim();
+
+      if (!urlValue) {
+        alert('Mohon masukkan URL!');
+        return;
+      }
+
+      if (!/^https?:\/\//i.test(urlValue)) {
+        urlValue = 'https://' + urlValue;
+      }
+
+      venueLinks.push({ name: urlValue, url: urlValue });
+      urlInput.value = '';
+
+      renderVenueLinks();
+      handleInput(); 
+    }
+
+    function deleteLink(index) {
+      venueLinks.splice(index, 1);
+      renderVenueLinks();
+      handleInput(); 
+    }
+
+    function calculateTotal() {
+      const inputs = document.querySelectorAll('.price-input');
+      let total = 0;
+
+      inputs.forEach(input => {
+        total += getRawValue(input.value);
+      });
+
+      const formattedTotal = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0
+      }).format(total);
+
+      const totalEl = document.getElementById('grandTotal');
+      
+      // Animasi kilatan cahaya saat angka berubah
+      if (totalEl.innerText !== formattedTotal) {
+        totalEl.innerText = formattedTotal;
+        totalEl.classList.remove('glow-update');
+        void totalEl.offsetWidth; // Trigger reflow
+        totalEl.classList.add('glow-update');
+      }
+
+      // Perbarui tema warna secara interaktif
+      updateDynamicTheme(total);
+    }
+
+    async function loadFromUpstash() {
+      const statusEl = document.getElementById('syncStatus');
+      try {
+        const response = await fetch(`${UPSTASH_CONFIG.URL}/get/${UPSTASH_CONFIG.PREFIX}_data`, {
+          headers: {
+            Authorization: `Bearer ${UPSTASH_CONFIG.TOKEN}`
+          }
+        });
+        const result = await response.json();
+
+        if (result.result) {
+          const data = JSON.parse(result.result);
+
+          document.querySelectorAll('.price-input').forEach(input => {
+            const id = input.getAttribute('data-id');
+            if (data[id] !== undefined) {
+              input.value = Number(data[id]).toLocaleString('id-ID');
+            }
+          });
+
+          if (data.venueLinks) {
+            venueLinks = data.venueLinks;
+          }
+
+          statusEl.innerText = 'Data berhasil dimuat dari Upstash ✅';
+          statusEl.style.color = '#125c48';
+        } else {
+          statusEl.innerText = 'Menggunakan data default (belum ada data tersimpan).';
+        }
+      } catch (error) {
+        console.error('Gagal memuat data:', error);
+        statusEl.innerText = 'Gagal tersambung ke database Upstash ❌';
+        statusEl.style.color = '#b81414';
+      }
+      calculateTotal();
+    }
+
+    function handleInput() {
+      calculateTotal();
+      const statusEl = document.getElementById('syncStatus');
+      statusEl.innerText = 'Menyimpan perubahan...';
+      statusEl.style.color = '#d4af37';
+
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        executeSaveToUpstash();
+      }, 800);
+    }
+
+    function manualSaveToUpstash() {
+      clearTimeout(saveTimeout);
+      executeSaveToUpstash();
+    }
+
+    async function executeSaveToUpstash() {
+      const statusEl = document.getElementById('syncStatus');
+      statusEl.innerText = 'Mengirim data ke Upstash...';
+
+      const data = {};
+      document.querySelectorAll('.price-input').forEach(input => {
+        const id = input.getAttribute('data-id');
+        data[id] = getRawValue(input.value);
+      });
+
+      data.venueLinks = venueLinks;
+
+      try {
+        await fetch(`${UPSTASH_CONFIG.URL}/set/${UPSTASH_CONFIG.PREFIX}_data`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${UPSTASH_CONFIG.TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        statusEl.innerText = 'Berhasil di-update ke Upstash ✅';
+        statusEl.style.color = '#125c48';
+      } catch (error) {
+        console.error('Gagal menyimpan:', error);
+        statusEl.innerText = 'Gagal menyimpan ke Upstash ❌';
+        statusEl.style.color = '#b81414';
+      }
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('venueModal');
+      if (event.target === modal) {
+        closeVenueModal();
+      }
+    }
+
+    window.onload = loadFromUpstash;
+  </script>
+
+</body>
+</html>
