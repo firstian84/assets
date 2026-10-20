@@ -219,13 +219,15 @@
     }
 
     .kerja-update-container {
-      background: linear-gradient(135deg, #3a1c1c, #1f0d0d);
+      background: rgba(31, 13, 13, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1.5px solid var(--accent);
       border-radius: var(--radius);
       padding: 15px;
       margin-top: 10px;
       color: var(--white);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
     .kerja-update-container h3 {
@@ -274,7 +276,6 @@
       outline: none;
     }
 
-    /* Style Gambar Preview di Samping Input URL */
     .preview-thumbnail-container {
       width: 32px;
       height: 32px;
@@ -328,6 +329,15 @@
       color: #ffd700;
       font-weight: 600;
       flex: 1;
+    }
+
+    .sync-status span span.coord-link {
+      color: #64ffda;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .sync-status span span.coord-link:hover {
+      color: #1de9b6;
     }
 
     .btn-update-upstash {
@@ -564,7 +574,7 @@
         </div>
       </div>
 
-      <!-- KELOMPOK KERJA UPDATE: BESAR, SEDANG, KECIL (3 INPUT MASING-MASING) -->
+      <!-- KELOMPOK KERJA UPDATE: BESAR, SEDANG, KECIL -->
       <div class="kerja-update-container">
         <h3>📋 KERJA UPDATE</h3>
         
@@ -651,9 +661,7 @@
     <div class="modal-content">
       <button class="close-modal" onclick="closeVenueModal()">&times;</button>
       <h4 style="margin-bottom: 12px; color: var(--primary); font-size: 1rem;">RINCIAN</h4>
-      <ul class="link-list" id="venueLinkList">
-        <!-- Render dinamis via JS -->
-      </ul>
+      <ul class="link-list" id="venueLinkList"></ul>
 
       <div class="add-link-form">
         <input type="url" id="newLinkUrl" placeholder="Masukkan URL (https://...)">
@@ -673,6 +681,17 @@
     </div>
   </div>
 
+  <!-- MODAL POPUP GOOGLE MAPS -->
+  <div class="modal" id="mapModal">
+    <div class="modal-content" style="max-width: 700px; background: #1a0505;">
+      <button class="close-modal" onclick="closeMapModal()">&times;</button>
+      <h4 style="margin-bottom: 12px; color: #ffd700; font-size: 1rem; text-align: center;">Lokasi Update (Google Maps)</h4>
+      <div style="width: 100%; height: 400px; border-radius: 8px; overflow: hidden; border: 1px solid var(--accent);">
+        <iframe id="googleMapIframe" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT & UPSTASH INTEGRATION -->
   <script>
     const UPSTASH_CONFIG = {
@@ -682,6 +701,9 @@
     };
 
     let saveTimeout = null;
+
+    // Koordinat Default (Contoh: Jakarta Selatan / Lokasi Anda)
+    let currentCoords = { lat: -6.261492, lng: 106.810600 };
 
     let venueLinks = [
       { name: "https://www.bridestory.com", url: "https://www.bridestory.com" },
@@ -781,6 +803,17 @@
       document.getElementById('imageModal').style.display = 'none';
     }
 
+    function openMapModal(lat, lng) {
+      const iframe = document.getElementById('googleMapIframe');
+      iframe.src = `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+      document.getElementById('mapModal').style.display = 'flex';
+    }
+
+    function closeMapModal() {
+      document.getElementById('mapModal').style.display = 'none';
+      document.getElementById('googleMapIframe').src = '';
+    }
+
     function getFaviconUrl(url) {
       try {
         const domain = new URL(url).hostname;
@@ -861,7 +894,37 @@
       updateDynamicTheme(total);
     }
 
+    // Helper untuk format tanggal, jam, dan koordinat GPS
+    function getCurrentTimestampWithCoord() {
+      const now = new Date();
+      const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateStr = now.toLocaleDateString('id-ID', optionsDate);
+      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      
+      const lat = currentCoords.lat.toFixed(6);
+      const lng = currentCoords.lng.toFixed(6);
+
+      return `${dateStr}, ${timeStr} | <span class="coord-link" onclick="openMapModal(${lat}, ${lng})" title="Klik untuk buka Peta">📍 ${lat}, ${lng}</span>`;
+    }
+
+    // Ambil lokasi GPS perangkat jika diizinkan
+    function fetchDeviceLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            currentCoords.lat = position.coords.latitude;
+            currentCoords.lng = position.coords.longitude;
+          },
+          (error) => {
+            console.warn("GPS tidak diizinkan atau gagal, menggunakan koordinat default.", error);
+          },
+          { timeout: 10000, maximumAge: 60000 }
+        );
+      }
+    }
+
     async function loadFromUpstash() {
+      fetchDeviceLocation();
       const statusEl = document.getElementById('syncStatus');
       try {
         const response = await fetch(`${UPSTASH_CONFIG.URL}/get/${UPSTASH_CONFIG.PREFIX}_data`, {
@@ -881,7 +944,6 @@
             }
           });
 
-          // Muat data 3 input Besar, Sedang, Kecil
           for (let i = 1; i <= 3; i++) {
             if (data[`kerja_besar_url${i}`] !== undefined) {
               document.getElementById(`inputUrlBesar${i}`).value = data[`kerja_besar_url${i}`];
@@ -901,7 +963,7 @@
             venueLinks = data.venueLinks;
           }
 
-          statusEl.innerText = ' ✅ Data berhasil dimuat.';
+          statusEl.innerHTML = `✅  <span style="font-weight: normal; opacity: 0.9;">(${getCurrentTimestampWithCoord()})</span>`;
           statusEl.style.color = '#125c48';
         } else {
           statusEl.innerText = 'Menggunakan data default.';
@@ -942,7 +1004,6 @@
         data[id] = getRawValue(input.value);
       });
 
-      // Simpan data 3 input Besar, Sedang, Kecil
       for (let i = 1; i <= 3; i++) {
         data[`kerja_besar_url${i}`] = document.getElementById(`inputUrlBesar${i}`).value;
         data[`kerja_sedang_url${i}`] = document.getElementById(`inputUrlSedang${i}`).value;
@@ -960,7 +1021,7 @@
           },
           body: JSON.stringify(data)
         });
-        statusEl.innerText = ' ✅ Tersimpan';
+        statusEl.innerHTML = `✅ Tersimpan <span style="font-weight: normal; opacity: 0.9;">(${getCurrentTimestampWithCoord()})</span>`;
         statusEl.style.color = '#125c48';
       } catch (error) {
         console.error('Gagal menyimpan:', error);
@@ -972,11 +1033,15 @@
     window.onclick = function(event) {
       const modal = document.getElementById('venueModal');
       const imgModal = document.getElementById('imageModal');
+      const mapModal = document.getElementById('mapModal');
       if (event.target === modal) {
         closeVenueModal();
       }
       if (event.target === imgModal) {
         closeImageModal();
+      }
+      if (event.target === mapModal) {
+        closeMapModal();
       }
     }
 
