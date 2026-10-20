@@ -50,7 +50,6 @@
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     }
 
-    /* Ukuran Judul Dinamis (Responsif) */
     header h1 {
       color: var(--primary);
       font-size: clamp(1.3rem, 4vw, 2.1rem);
@@ -69,7 +68,6 @@
       }
     }
 
-    /* BUDGET SECTION */
     .budget-container {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
@@ -108,11 +106,9 @@
       letter-spacing: 0.5px;
     }
 
-    /* Alignment & Width Kolom */
     .budget-table col.col-desc { width: 55%; }
     .budget-table col.col-price { width: 45%; }
 
-    /* INPUT INTERAKTIF */
     .budget-table input[type="text"] {
       width: 100%;
       padding: 8px 10px;
@@ -132,7 +128,6 @@
       background-color: #fff9f0;
     }
 
-    /* TOMBOL VENUE */
     .btn-venue-link {
       background: none;
       border: none;
@@ -163,7 +158,6 @@
       margin-top: 2px;
     }
 
-    /* TOTAL BOX DENGAN GRADASI KEKAISARAN CINA */
     .total-box {
       margin-top: 18px;
       background: linear-gradient(135deg, #b81414, #800e0e);
@@ -177,16 +171,22 @@
       font-weight: bold;
       border: 1px solid var(--accent);
       box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-      animation: boxPulse 4s infinite alternate ease-in-out;
     }
 
-    @keyframes boxPulse {
-      0% {
-        box-shadow: 0 4px 12px rgba(184, 20, 20, 0.4);
-      }
-      100% {
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
-      }
+    /* KOTAK SALDO REALTIME */
+    .saldo-box {
+      margin-top: 10px;
+      background: linear-gradient(135deg, #125c48, #0a382c);
+      color: var(--white);
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
 
     .total-amount {
@@ -195,7 +195,30 @@
       text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
     }
 
-    /* Animasi kilat saat nilai berubah */
+    .saldo-input-wrapper {
+      width: 55%;
+    }
+
+    .saldo-input-wrapper input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: var(--white);
+      color: #125c48;
+      text-align: right;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .saldo-input-wrapper input:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      background-color: #f0faf5;
+    }
+
     .glow-update {
       animation: flashGlow 0.8s ease-out;
     }
@@ -244,7 +267,6 @@
       transform: scale(0.96);
     }
 
-    /* MODAL POPUP */
     .modal {
       display: none;
       position: fixed;
@@ -271,12 +293,6 @@
       padding: 18px;
       position: relative;
       border: 1.5px solid var(--accent);
-      animation: modalFadeIn 0.25s ease-out;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(-15px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .close-modal {
@@ -372,22 +388,18 @@
       white-space: nowrap;
     }
 
-    /* KHUSUS DISPLAY SMARTPHONE / SCREEN KECIL */
     @media (max-width: 480px) {
       body {
         padding: 8px;
       }
-      
       .budget-container {
         padding: 12px 10px;
       }
-
       .sync-wrapper {
         flex-direction: column;
         align-items: stretch;
         text-align: center;
       }
-
       .btn-update-upstash {
         width: 100%;
       }
@@ -445,15 +457,24 @@
         </tbody>
       </table>
 
+      <!-- KOTAK TOTAL DANA -->
       <div class="total-box" id="totalBox">
         <span>TOTAL DANA:</span>
         <span class="total-amount" id="grandTotal">Rp 0</span>
       </div>
 
+      <!-- KOTAK REALTIME SALDO (DIUBAH MENJADI INPUT MANUAL) -->
+      <div class="saldo-box" id="saldoBox">
+        <span>REALTIME SALDO:</span>
+        <div class="saldo-input-wrapper">
+          <input type="text" class="price-input" data-id="realtime_saldo" value="0" oninput="formatNumberInput(this); handleInput()">
+        </div>
+      </div>
+
       <!-- BAGIAN STATUS & TOMBOL UPDATE MANUAL -->
       <div class="sync-wrapper">
         <div class="sync-status" id="syncStatus">Memuat data dari Upstash...</div>
-        <button class="btn-update-upstash" onclick="manualSaveToUpstash()">🔄 Update Upstash</button>
+        <button class="btn-update-upstash" onclick="manualSaveToUpstash()">Update</button>
       </div>
     </div>
   </div>
@@ -469,7 +490,7 @@
 
       <div class="add-link-form">
         <input type="url" id="newLinkUrl" placeholder="Masukkan URL (https://...)">
-        <button class="btn-add" onclick="addNewLink()">Tambah</button>
+        <button class="btn-add" onclick="addNewLink()">Tambah pemasukan/pengeluaran</button>
       </div>
     </div>
   </div>
@@ -591,12 +612,11 @@
     }
 
     function calculateTotal() {
-      const inputs = document.querySelectorAll('.price-input');
-      let total = 0;
-
-      inputs.forEach(input => {
-        total += getRawValue(input.value);
-      });
+      let danaMasuk = getRawValue(document.querySelector('[data-id="venue"]').value);
+      let budgetUtama = getRawValue(document.querySelector('[data-id="tambahan_kedua"]').value);
+      
+      // Total Dana sekarang hanya menghitung jumlah dari Dana Masuk + Budget Utama (atau sesuaikan kebutuhan)
+      let total = danaMasuk + budgetUtama;
 
       const formattedTotal = new Intl.NumberFormat('id-ID', {
         style: 'currency',
