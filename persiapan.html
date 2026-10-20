@@ -173,17 +173,16 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
 
-    /* KOTAK SALDO REALTIME */
     .saldo-box {
       margin-top: 10px;
       background: linear-gradient(135deg, #125c48, #0a382c);
       color: var(--white);
-      padding: 14px 16px;
+      padding: 12px 16px;
       border-radius: var(--radius);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1rem;
+      font-size: 0.92rem;
       font-weight: bold;
       border: 1px solid var(--accent);
       box-shadow: 0 4px 15px rgba(0,0,0,0.25);
@@ -204,7 +203,7 @@
       padding: 8px 10px;
       border: 1.5px solid var(--accent);
       border-radius: 6px;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: bold;
       background: var(--white);
       color: #125c48;
@@ -217,6 +216,88 @@
       border-color: #ffd700;
       box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
       background-color: #f0faf5;
+    }
+
+    .kerja-update-container {
+      background: linear-gradient(135deg, #3a1c1c, #1f0d0d);
+      border: 1.5px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 15px;
+      margin-top: 10px;
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+
+    .kerja-update-container h3 {
+      color: #ffd700;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+      padding-bottom: 6px;
+    }
+
+    .kerja-item-group {
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .kerja-item-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: #ffd700;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .kerja-inputs-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .kerja-inputs-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .input-link {
+      flex: 1;
+      padding: 7px 10px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      background: var(--white);
+      color: var(--text);
+      outline: none;
+    }
+
+    /* Style Gambar Preview di Samping Input URL */
+    .preview-thumbnail-container {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--accent);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .preview-thumbnail-container:hover {
+      transform: scale(1.08);
+    }
+
+    .preview-thumbnail-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .glow-update {
@@ -244,7 +325,7 @@
 
     .sync-status {
       font-size: 0.78rem;
-      color: #443834;
+      color: #ffd700;
       font-weight: 600;
       flex: 1;
     }
@@ -275,7 +356,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(26, 5, 5, 0.3);
+      background-color: rgba(26, 5, 5, 0.5);
       backdrop-filter: blur(4px);
       align-items: center;
       justify-content: center;
@@ -305,6 +386,7 @@
       cursor: pointer;
       border: none;
       background: none;
+      z-index: 10;
     }
 
     .link-list {
@@ -370,10 +452,12 @@
     .add-link-form input {
       flex: 1;
       padding: 8px 10px;
-      border: 1px solid var(--accent);
+      border: 1.5px solid var(--accent);
       border-radius: 6px;
       font-size: 0.82rem;
       outline: none;
+      background: var(--white);
+      color: var(--text);
     }
 
     .btn-add {
@@ -402,6 +486,9 @@
       }
       .btn-update-upstash {
         width: 100%;
+      }
+      .saldo-input-wrapper {
+        width: 60%;
       }
     }
   </style>
@@ -458,22 +545,96 @@
       </table>
 
       <!-- KOTAK TOTAL DANA -->
-      <div class="total-box" id="totalBox">
+      <div class="total-box">
         <span>TOTAL DANA:</span>
         <span class="total-amount" id="grandTotal">Rp 0</span>
       </div>
       
-           <!-- KOTAK TARGET -->
-      <div class="total-box" id="totalBox">
+      <!-- KOTAK TARGET -->
+      <div class="total-box">
         <span>TARGET:</span>
-        <span class="total-amount" id="grandTotal">Rp 292.000.000</span>
+        <span class="total-amount">Rp 292.000.000</span>
       </div>
 
-      <!-- KOTAK REALTIME SALDO (DIUBAH MENJADI INPUT MANUAL) -->
+      <!-- KOTAK REALTIME SALDO -->
       <div class="saldo-box" id="saldoBox">
         <span>REALTIME SALDO:</span>
         <div class="saldo-input-wrapper">
           <input type="text" class="price-input" data-id="realtime_saldo" value="0" oninput="formatNumberInput(this); handleInput()">
+        </div>
+      </div>
+
+      <!-- KELOMPOK KERJA UPDATE: BESAR, SEDANG, KECIL (3 INPUT MASING-MASING) -->
+      <div class="kerja-update-container">
+        <h3>📋 KERJA UPDATE (BESAR, SEDANG, KECIL)</h3>
+        
+        <!-- Kerja Update Besar (3 Input) -->
+        <div class="kerja-item-group">
+          <label>Kerja Update Besar</label>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlBesar1" placeholder="URL 1 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlBesar1', 'thumbBesar1')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlBesar1').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbBesar1" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlBesar2" placeholder="URL 2 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlBesar2', 'thumbBesar2')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlBesar2').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbBesar2" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlBesar3" placeholder="URL 3 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlBesar3', 'thumbBesar3')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlBesar3').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbBesar3" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+        </div>
+
+        <!-- Kerja Update Sedang (3 Input) -->
+        <div class="kerja-item-group">
+          <label>Kerja Update Sedang</label>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlSedang1" placeholder="URL 1 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlSedang1', 'thumbSedang1')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlSedang1').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbSedang1" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlSedang2" placeholder="URL 2 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlSedang2', 'thumbSedang2')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlSedang2').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbSedang2" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlSedang3" placeholder="URL 3 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlSedang3', 'thumbSedang3')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlSedang3').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbSedang3" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+        </div>
+
+        <!-- Kerja Update Kecil (3 Input) -->
+        <div class="kerja-item-group">
+          <label>Kerja Update Kecil</label>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil1" placeholder="URL 1 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil1', 'thumbKecil1')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil1').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil1" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil2" placeholder="URL 2 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil2', 'thumbKecil2')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil2').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil2" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
+          <div class="kerja-inputs-row">
+            <input type="text" class="input-link" id="inputUrlKecil3" placeholder="URL 3 (Gambar/Link)..." oninput="handleInput(); updateThumbnail('inputUrlKecil3', 'thumbKecil3')">
+            <div class="preview-thumbnail-container" onclick="handlePreviewClick(document.getElementById('inputUrlKecil3').value)" title="Klik untuk preview gambar atau buka link">
+              <img id="thumbKecil3" src="" alt="Img" onerror="this.src='https://via.placeholder.com/32?text=IMG'">
+            </div>
+          </div>
         </div>
       </div>
 
@@ -501,6 +662,17 @@
     </div>
   </div>
 
+  <!-- MODAL POPUP PREVIEW GAMBAR -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content" style="max-width: 600px; text-align: center; background: #1a0505;">
+      <button class="close-modal" onclick="closeImageModal()">&times;</button>
+      <h4 style="margin-bottom: 12px; color: #ffd700; font-size: 1rem;">Preview Gambar / Link</h4>
+      <div style="max-height: 70vh; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+        <img id="modalPreviewImg" src="" alt="Preview" style="max-width: 100%; max-height: 65vh; object-fit: contain; border-radius: 8px; border: 1px solid var(--accent);" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT & UPSTASH INTEGRATION -->
   <script>
     const UPSTASH_CONFIG = {
@@ -519,7 +691,7 @@
     const COLOR_PALETTES = [
       { primary: "#b81414", glow: "rgba(212, 175, 55, 0.7)", light: "#fdf2f2" }, 
       { primary: "#125c48", glow: "rgba(212, 175, 55, 0.7)", light: "#eaf3f0" },  
-      { primary: "#8c1c1c", glow: "rgba(255, 140, 0, 0.7)", light: "#fbf0f0" },   
+      { primary: "#8c1c1c", glow: "rgba(255, 140, 0, 0.7)", light: "#fbf0f0" },    
       { primary: "#a67c00", glow: "rgba(184, 20, 20, 0.7)", light: "#fcf8eb" }    
     ];
 
@@ -552,6 +724,43 @@
       return parseFloat(val.toString().replace(/\./g, '')) || 0;
     }
 
+    function updateThumbnail(inputId, thumbId) {
+      const urlVal = document.getElementById(inputId).value.trim();
+      const thumbEl = document.getElementById(thumbId);
+      if (urlVal) {
+        let formattedUrl = urlVal;
+        if (!/^https?:\/\//i.test(formattedUrl)) {
+          formattedUrl = 'https://' + formattedUrl;
+        }
+        thumbEl.src = formattedUrl;
+      } else {
+        thumbEl.src = '';
+      }
+    }
+
+    function isImageFile(url) {
+      if (!url) return false;
+      const imageExtensions = /\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i;
+      return imageExtensions.test(url) || url.includes('images') || url.includes('usercontent');
+    }
+
+    function handlePreviewClick(url) {
+      if (!url) {
+        alert('URL belum diisi!');
+        return;
+      }
+      let formattedUrl = url.trim();
+      if (!/^https?:\/\//i.test(formattedUrl)) {
+        formattedUrl = 'https://' + formattedUrl;
+      }
+
+      if (isImageFile(formattedUrl)) {
+        openImageModal(formattedUrl);
+      } else {
+        window.open(formattedUrl, '_blank');
+      }
+    }
+
     function openVenueModal() {
       document.getElementById('venueModal').style.display = 'flex';
       renderVenueLinks();
@@ -559,6 +768,17 @@
 
     function closeVenueModal() {
       document.getElementById('venueModal').style.display = 'none';
+    }
+
+    function openImageModal(imgUrl) {
+      const modalImg = document.getElementById('modalPreviewImg');
+      modalImg.style.display = 'block';
+      modalImg.src = imgUrl;
+      document.getElementById('imageModal').style.display = 'flex';
+    }
+
+    function closeImageModal() {
+      document.getElementById('imageModal').style.display = 'none';
     }
 
     function getFaviconUrl(url) {
@@ -621,7 +841,6 @@
       let danaMasuk = getRawValue(document.querySelector('[data-id="venue"]').value);
       let budgetUtama = getRawValue(document.querySelector('[data-id="tambahan_kedua"]').value);
       
-      // Total Dana sekarang hanya menghitung jumlah dari Dana Masuk + Budget Utama (atau sesuaikan kebutuhan)
       let total = danaMasuk + budgetUtama;
 
       const formattedTotal = new Intl.NumberFormat('id-ID', {
@@ -662,18 +881,34 @@
             }
           });
 
+          // Muat data 3 input Besar, Sedang, Kecil
+          for (let i = 1; i <= 3; i++) {
+            if (data[`kerja_besar_url${i}`] !== undefined) {
+              document.getElementById(`inputUrlBesar${i}`).value = data[`kerja_besar_url${i}`];
+              updateThumbnail(`inputUrlBesar${i}`, `thumbBesar${i}`);
+            }
+            if (data[`kerja_sedang_url${i}`] !== undefined) {
+              document.getElementById(`inputUrlSedang${i}`).value = data[`kerja_sedang_url${i}`];
+              updateThumbnail(`inputUrlSedang${i}`, `thumbSedang${i}`);
+            }
+            if (data[`kerja_kecil_url${i}`] !== undefined) {
+              document.getElementById(`inputUrlKecil${i}`).value = data[`kerja_kecil_url${i}`];
+              updateThumbnail(`inputUrlKecil${i}`, `thumbKecil${i}`);
+            }
+          }
+
           if (data.venueLinks) {
             venueLinks = data.venueLinks;
           }
 
-          statusEl.innerText = ' ✅';
+          statusEl.innerText = ' ✅ Data berhasil dimuat.';
           statusEl.style.color = '#125c48';
         } else {
           statusEl.innerText = 'Menggunakan data default.';
         }
       } catch (error) {
         console.error('Gagal memuat data:', error);
-        statusEl.innerText = ' ❌';
+        statusEl.innerText = ' ❌ Gagal memuat data.';
         statusEl.style.color = '#b81414';
       }
       calculateTotal();
@@ -701,10 +936,18 @@
       statusEl.innerText = 'Mengirim data ke Upstash...';
 
       const data = {};
+      
       document.querySelectorAll('.price-input').forEach(input => {
         const id = input.getAttribute('data-id');
         data[id] = getRawValue(input.value);
       });
+
+      // Simpan data 3 input Besar, Sedang, Kecil
+      for (let i = 1; i <= 3; i++) {
+        data[`kerja_besar_url${i}`] = document.getElementById(`inputUrlBesar${i}`).value;
+        data[`kerja_sedang_url${i}`] = document.getElementById(`inputUrlSedang${i}`).value;
+        data[`kerja_kecil_url${i}`] = document.getElementById(`inputUrlKecil${i}`).value;
+      }
 
       data.venueLinks = venueLinks;
 
@@ -717,19 +960,23 @@
           },
           body: JSON.stringify(data)
         });
-        statusEl.innerText = ' ✅';
+        statusEl.innerText = ' ✅ Tersimpan';
         statusEl.style.color = '#125c48';
       } catch (error) {
         console.error('Gagal menyimpan:', error);
-        statusEl.innerText = ' ❌';
+        statusEl.innerText = ' ❌ Gagal menyimpan';
         statusEl.style.color = '#b81414';
       }
     }
 
     window.onclick = function(event) {
       const modal = document.getElementById('venueModal');
+      const imgModal = document.getElementById('imageModal');
       if (event.target === modal) {
         closeVenueModal();
+      }
+      if (event.target === imgModal) {
+        closeImageModal();
       }
     }
 
