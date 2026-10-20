@@ -909,18 +909,24 @@
 
     // Ambil lokasi GPS perangkat jika diizinkan
     function fetchDeviceLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            currentCoords.lat = position.coords.latitude;
-            currentCoords.lng = position.coords.longitude;
-          },
-          (error) => {
-            console.warn("GPS tidak diizinkan atau gagal, menggunakan koordinat default.", error);
-          },
-          { timeout: 10000, maximumAge: 60000 }
-        );
-      }
+      return new Promise((resolve) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              currentCoords.lat = position.coords.latitude;
+              currentCoords.lng = position.coords.longitude;
+              resolve(true);
+            },
+            (error) => {
+              console.warn("GPS tidak diizinkan atau gagal, menggunakan koordinat tersimpan/default.", error);
+              resolve(false);
+            },
+            { timeout: 8000, maximumAge: 60000 }
+          );
+        } else {
+          resolve(false);
+        }
+      });
     }
 
     async function loadFromUpstash() {
@@ -963,6 +969,12 @@
             venueLinks = data.venueLinks;
           }
 
+          // Muat koordinat jika tersedia di database
+          if (data.lat !== undefined && data.lng !== undefined) {
+            currentCoords.lat = parseFloat(data.lat);
+            currentCoords.lng = parseFloat(data.lng);
+          }
+
           statusEl.innerHTML = `✅  <span style="font-weight: normal; opacity: 0.9;">(${getCurrentTimestampWithCoord()})</span>`;
           statusEl.style.color = '#125c48';
         } else {
@@ -988,9 +1000,17 @@
       }, 800);
     }
 
-    function manualSaveToUpstash() {
+    // Tombol Update Manual: Mengambil koordinat GPS terbaru saat disentuh, lalu simpan ke Upstash
+    async function manualSaveToUpstash() {
       clearTimeout(saveTimeout);
-      executeSaveToUpstash();
+      const statusEl = document.getElementById('syncStatus');
+      statusEl.innerText = 'Mengambil koordinat GPS & memperbarui...';
+      statusEl.style.color = '#ffd700';
+
+      // Paksa ambil posisi GPS terbaru saat tombol Update ditekan
+      await fetchDeviceLocation();
+      
+      await executeSaveToUpstash();
     }
 
     async function executeSaveToUpstash() {
@@ -1011,6 +1031,10 @@
       }
 
       data.venueLinks = venueLinks;
+      
+      // Sertakan koordinat latitude & longitude ke payload data Upstash
+      data.lat = currentCoords.lat;
+      data.lng = currentCoords.lng;
 
       try {
         await fetch(`${UPSTASH_CONFIG.URL}/set/${UPSTASH_CONFIG.PREFIX}_data`, {
